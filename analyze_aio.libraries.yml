@@ -1,0 +1,4 @@
+full-report:
+  css:
+    component:
+      css/full-report.css: {}

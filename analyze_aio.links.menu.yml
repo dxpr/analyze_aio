@@ -1,0 +1,6 @@
+analyze_aio.settings:
+  title: 'AI Optimization'
+  description: 'Configure AI optimization readiness checks and view reports.'
+  route_name: analyze_aio.settings
+  parent: ai.admin_settings
+  weight: 8

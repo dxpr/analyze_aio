@@ -1,0 +1,19 @@
+{
+  "name": "drupal/analyze_aio",
+  "type": "drupal-module",
+  "description": "AI optimization readiness analysis: heading structure, structured data, semantic HTML, link density, and optional AI-powered citation and tone checks.",
+  "keywords": ["Drupal", "Analyze", "AIO", "GEO", "AI Optimization"],
+  "license": "GPL-2.0-or-later",
+  "homepage": "https://www.drupal.org/project/analyze_aio",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/analyze_aio",
+    "source": "https://git.drupalcode.org/project/analyze_aio"
+  },
+  "require": {
+    "drupal/analyze": ">=1.3.0",
+    "drupal/views_color_scales": ">=1.1.0"
+  },
+  "suggest": {
+    "drupal/ai": "Enables AI-powered citation readiness and tone authority checks."
+  }
+}

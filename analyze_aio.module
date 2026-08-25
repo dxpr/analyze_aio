@@ -1,0 +1,111 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Provides AI optimization readiness analysis for content entities.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\views\ViewExecutable;
+
+/**
+ * Implements hook_help().
+ */
+function analyze_aio_help($route_name) {
+  if ($route_name === 'help.page.analyze_aio') {
+    return '<p>' . t('Analyses content for AI optimization readiness: heading structure, structured data, semantic HTML, citation quality, and tone authority.') . '</p>';
+  }
+}
+
+/**
+ * Implements hook_entity_update().
+ */
+function analyze_aio_entity_update(EntityInterface $entity): void {
+  if (_analyze_aio_is_supported_entity($entity)) {
+    \Drupal::service('analyze_aio.storage')->deleteScores($entity);
+  }
+}
+
+/**
+ * Implements hook_entity_delete().
+ */
+function analyze_aio_entity_delete(EntityInterface $entity): void {
+  if (_analyze_aio_is_supported_entity($entity)) {
+    \Drupal::service('analyze_aio.storage')->deleteScores($entity);
+  }
+}
+
+/**
+ * Implements hook_views_pre_view().
+ */
+function analyze_aio_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
+  if ($view->id() === 'aio_results' && $display_id === 'page_1') {
+    $current_user = \Drupal::currentUser();
+    if ($current_user->hasPermission('administer analyze settings')) {
+      $settings_url = Url::fromRoute('analyze_aio.settings');
+      if ($settings_url->access()) {
+        $link = Link::fromTextAndUrl(t('Configure settings'), $settings_url);
+        $link = $link->toRenderable();
+        $link['#attributes']['class'][] = 'button';
+        $link['#attributes']['class'][] = 'button--small';
+        $link['#attributes']['class'][] = 'button--primary';
+
+        $view->attachment_before = [
+          '#type' => 'container',
+          '#attributes' => ['class' => ['form-actions', 'views-configure-actions']],
+          '#weight' => -10,
+          'configure_link' => $link,
+          '#attached' => [
+            'library' => ['system/base'],
+          ],
+        ];
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_views_color_scale_popover_alter().
+ */
+function analyze_aio_views_color_scale_popover_alter(array &$content, array $context): void {
+  if ($context['view']->storage->get('base_table') !== 'analyze_aio_scores') {
+    return;
+  }
+  $content = [
+    '#theme' => 'analyze_gauge',
+    '#caption' => $context['field_options']['label'] ?? '',
+    '#range_min_label' => t('Not Ready'),
+    '#range_mid_label' => t('Partial'),
+    '#range_max_label' => t('AI Ready'),
+    '#range_min' => $context['min'],
+    '#value' => $context['position'],
+    '#display_value' => $context['display_value'],
+    '#range_max' => $context['max'],
+    '#attached' => [
+      'library' => ['analyze/gauge-popover'],
+    ],
+  ];
+}
+
+/**
+ * Checks if an entity type is supported by the AIO analyser.
+ *
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ *   The entity to check.
+ *
+ * @return bool
+ *   TRUE if supported.
+ */
+function _analyze_aio_is_supported_entity(EntityInterface $entity): bool {
+  $config = \Drupal::config('analyze.settings');
+  $status = $config->get('status') ?? [];
+
+  $entity_type = $entity->getEntityTypeId();
+  $bundle = $entity->bundle();
+
+  return isset($status[$entity_type][$bundle]['analyze_aio_readiness']);
+}

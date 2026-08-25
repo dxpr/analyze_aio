@@ -1,0 +1,10 @@
+analyze_aio.settings:
+  route_name: analyze_aio.settings
+  title: 'Settings'
+  base_route: analyze_aio.settings
+
+analyze_aio.reports:
+  route_name: view.aio_results.page_1
+  title: 'Results'
+  base_route: analyze_aio.settings
+  weight: 20

@@ -1,0 +1,12 @@
+services:
+  analyze_aio.storage:
+    class: Drupal\analyze_aio\Service\AioStorageService
+    arguments: ['@database', '@config.factory', '@datetime.time']
+
+  analyze_aio.content_inspector:
+    class: Drupal\analyze_aio\Service\ContentInspectorService
+    arguments: ['@entity_type.manager', '@renderer', '@config.factory', '@request_stack']
+
+  logger.channel.analyze_aio:
+    parent: logger.channel_base
+    arguments: ['analyze_aio']

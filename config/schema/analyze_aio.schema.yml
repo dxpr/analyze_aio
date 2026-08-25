@@ -1,0 +1,35 @@
+analyze_aio.settings:
+  type: config_object
+  label: 'AIO settings'
+  mapping:
+    checks:
+      type: mapping
+      label: 'Enabled checks'
+      mapping:
+        heading_hierarchy:
+          type: boolean
+          label: 'Heading hierarchy'
+        json_ld:
+          type: boolean
+          label: 'JSON-LD structured data'
+        meta_completeness:
+          type: boolean
+          label: 'Meta tag completeness'
+        semantic_html:
+          type: boolean
+          label: 'Semantic HTML'
+        faq_detection:
+          type: boolean
+          label: 'FAQ detection'
+        internal_link_density:
+          type: boolean
+          label: 'Internal link density'
+        citation_readiness:
+          type: boolean
+          label: 'Citation readiness (AI)'
+        tone_authority:
+          type: boolean
+          label: 'Tone authority (AI)'
+    ai_checks_enabled:
+      type: boolean
+      label: 'Enable AI-powered checks'

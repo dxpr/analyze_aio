@@ -1,0 +1,124 @@
+<?php
+
+declare(strict_types=1);
+
+/**
+ * @file
+ * Install, update, and uninstall functions for the Analyze AIO module.
+ */
+
+/**
+ * Implements hook_schema().
+ *
+ * @phpstan-return array<string, array<string, mixed>>
+ */
+function analyze_aio_schema(): array {
+  $schema['analyze_aio_scores'] = [
+    'description' => 'Stores AI optimization readiness scores per entity.',
+    'fields' => [
+      'entity_type' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'description' => 'The entity type ID.',
+      ],
+      'entity_id' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'description' => 'The entity ID.',
+      ],
+      'bundle' => [
+        'type' => 'varchar',
+        'length' => 128,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'The entity bundle.',
+      ],
+      'content_hash' => [
+        'type' => 'varchar',
+        'length' => 64,
+        'not null' => TRUE,
+        'default' => '',
+        'description' => 'SHA-256 hash of the rendered content.',
+      ],
+      'overall_score' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Overall AIO readiness score (0-100).',
+      ],
+      'check_results' => [
+        'type' => 'blob',
+        'size' => 'big',
+        'not null' => FALSE,
+        'description' => 'JSON-encoded individual check results.',
+      ],
+      'last_checked' => [
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'Timestamp of the last analysis.',
+      ],
+    ],
+    'primary key' => ['entity_type', 'entity_id'],
+    'indexes' => [
+      'bundle' => ['entity_type', 'bundle'],
+      'score' => ['overall_score'],
+      'last_checked' => ['last_checked'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * @phpstan-return array<string, array<string, mixed>>
+ */
+function analyze_aio_requirements(string $phase): array {
+  $requirements = [];
+
+  if ($phase === 'runtime') {
+    $count = 0;
+    if (\Drupal::database()->schema()->tableExists('analyze_aio_scores')) {
+      $count = (int) \Drupal::database()
+        ->select('analyze_aio_scores', 's')
+        ->condition('overall_score', 50, '<')
+        ->countQuery()
+        ->execute()
+        ->fetchField();
+    }
+
+    $total = 0;
+    if (\Drupal::database()->schema()->tableExists('analyze_aio_scores')) {
+      $total = (int) \Drupal::database()
+        ->select('analyze_aio_scores', 's')
+        ->countQuery()
+        ->execute()
+        ->fetchField();
+    }
+
+    $requirements['analyze_aio'] = [
+      'title' => t('AI Optimization Readiness'),
+      'value' => t('@count of @total analysed pages score below 50%', [
+        '@count' => $count,
+        '@total' => $total,
+      ]),
+      'severity' => $count > 0 ? REQUIREMENT_WARNING : REQUIREMENT_OK,
+    ];
+  }
+
+  return $requirements;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function analyze_aio_uninstall(): void {
+  \Drupal::configFactory()->getEditable('views.view.aio_results')->delete();
+  \Drupal::database()->schema()->dropTable('analyze_aio_scores');
+}

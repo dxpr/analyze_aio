@@ -1,0 +1,10 @@
+checks:
+  heading_hierarchy: true
+  json_ld: true
+  meta_completeness: true
+  semantic_html: true
+  faq_detection: true
+  internal_link_density: true
+  citation_readiness: true
+  tone_authority: true
+ai_checks_enabled: false

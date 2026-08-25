@@ -1,0 +1,112 @@
+<p>This module is part of the <a href="https://www.drupal.org/project/analyze">Analyze</a> ecosystem and included in <a href="https://www.drupal.org/project/dxpr_cms">DXPR CMS</a>.</p>
+
+<h2>AI Answer Engines Cannot Cite What They Cannot Parse</h2>
+
+<blockquote>ChatGPT, Perplexity, Gemini, and Google AI Overviews are replacing traditional search for millions of queries. These systems extract answers from pages with clear structure: proper headings, structured data, semantic HTML, and FAQ patterns. Pages that lack these signals get skipped, regardless of how good the content is. This module scores every page against the factors that determine AI answer engine visibility.</blockquote>
+
+<h3>You need AI Optimization Analysis if</h3>
+<ul>
+  <li>Your content ranks well in traditional search but rarely appears in AI-generated answers</li>
+  <li>You want to understand which pages are structured for AI extraction and which are not</li>
+  <li>Your site lacks structured data (JSON-LD) and you need to prioritise where to add it</li>
+  <li>You want to measure and improve AI readiness across hundreds of pages systematically</li>
+</ul>
+
+<h2>What You Get</h2>
+<ul>
+  <li>
+    <strong>AI optimisation score per page</strong>
+    <p>Every content entity gets a percentage score across eight checks, displayed as a visual gauge in the Analyze tab. Scores update automatically when content changes.</p>
+  </li>
+  <li>
+    <strong>Progressive-disclosure full reports</strong>
+    <p>Checks are grouped by severity: needs attention, can be improved, and passed. Each failing check explains why it matters for AI answer engines specifically, and gives an actionable recommendation.</p>
+  </li>
+  <li>
+    <strong>Eight deterministic checks</strong>
+    <p>Heading hierarchy (with question-shaped heading detection), JSON-LD structured data (including AI-friendly schemas like FAQPage and HowTo), meta tag completeness, semantic HTML elements, FAQ pattern detection, and internal link density.</p>
+  </li>
+  <li>
+    <strong>Optional AI-powered checks</strong>
+    <p>With an AI provider configured, two additional checks score citation readiness (whether content is structured for AI extraction) and tone authority (expertise signals and authoritative voice).</p>
+  </li>
+  <li>
+    <strong>Batch analysis for existing content</strong>
+    <p>Score hundreds of pages at once to find which content needs attention first. Results are cached with content-hash invalidation, so repeat views are instant and re-analysis only runs when content actually changes.</p>
+  </li>
+  <li>
+    <h3>AI Coding Assistant Integration</h3>
+
+    <p>AI optimisation analysis is available to AI coding assistants
+    through the Analyze module's built-in
+    <a href="https://agentskills.io/specification">Agent
+    Skills</a> file. Run
+    <code>drush analyze:setup-ai</code> to enable, then ask
+    naturally:</p>
+    <ul>
+      <li>"Analyse AI optimisation readiness on all articles"</li>
+      <li>"Check structured data on the about page"</li>
+      <li>"Run AIO and SEO analysis together"</li>
+    </ul>
+    <p>Compatible with Claude Code, Codex CLI, Gemini CLI,
+    GitHub Copilot, Cursor, and other tools supporting the
+    standard.</p>
+  </li>
+  <li>
+    <strong>Site-wide AI optimisation report</strong>
+    <p>A filterable Views report shows AI readiness scores across all content, sortable by score, content type, and date, so you can spot patterns and prioritise improvements.</p>
+  </li>
+</ul>
+
+<h2>Getting Started</h2>
+<ol>
+  <li>Enable the analyzer per content type at /admin/config/content/analyze-settings</li>
+  <li>Configure which checks to run at /admin/config/analyze/aio</li>
+  <li>Open any content entity's Analyze tab to see the score</li>
+  <li>(Optional) Set up an AI provider at /admin/config/ai/providers for citation and tone checks</li>
+</ol>
+
+<div class="note-tip">
+  <h4>Prefer a turnkey demo site?</h4>
+  <p>Spin up <strong>DXPR CMS</strong>: Drupal pre-configured with DXPR Builder, DXPR Theme, the full Analyze suite including AI Optimization Analysis, and security best practices out of the box.</p>
+  <p><a href="https://www.drupal.org/project/dxpr_cms" title="DXPR CMS platform">Get DXPR CMS &raquo;</a></p>
+</div>
+
+<h3 id="module-project--additional-requirements">Additional requirements</h3>
+<p>
+  This module requires:
+  <ul>
+    <li><a href="https://www.drupal.org/project/analyze">Analyze</a> module (>=1.3.0)</li>
+    <li><a href="https://www.drupal.org/project/views_color_scales">Views Color Scales</a> module (>=1.1.0)</li>
+  </ul>
+</p>
+<p>
+  Optional:
+  <ul>
+    <li><a href="https://www.drupal.org/project/ai">AI</a> module with a configured chat provider (for citation readiness and tone authority checks)</li>
+  </ul>
+</p>
+
+<p>Analyze AIO is included in <a href="https://dxpr.com/c/marketing-cms?ref=50701">DXPR CMS</a>, which ships the full Analyze suite pre-configured so marketing teams can start optimising for AI answer engines immediately.</p>
+
+<h3>Related Modules</h3>
+
+<p>Required dependencies; this module directly uses their APIs:</p>
+<ul>
+<li><a href="https://www.drupal.org/project/analyze">Analyze</a> - Content analysis framework; this module extends AnalyzePluginBase and implements BatchableAnalyzerInterface</li>
+<li><a href="https://www.drupal.org/project/views_color_scales">Views Color Scales</a> - Colour-coded score display in the bundled AIO Views report</li>
+</ul>
+
+<p>Optional integration:</p>
+<ul>
+<li><a href="https://www.drupal.org/project/ai">AI</a> - LLM provider layer; enables citation readiness and tone authority checks</li>
+</ul>
+
+<p>Sibling Analyze plugins:</p>
+<ul>
+<li><a href="https://www.drupal.org/project/analyze_seo">SEO Analysis</a> - Traditional SEO scoring</li>
+<li><a href="https://www.drupal.org/project/analyze_ai_brand_voice">AI Brand Voice</a> - Brand voice consistency scoring</li>
+<li><a href="https://www.drupal.org/project/analyze_ai_sentiments">AI Sentiments Analysis</a> - Multi-dimensional content tone analysis</li>
+<li><a href="https://www.drupal.org/project/analyze_broken_links">Broken Links Analyzer</a> - Link health monitoring per page</li>
+<li><a href="https://www.drupal.org/project/analyze_search_console">Search Console Analyzer</a> - Google Search performance per page</li>
+</ul>

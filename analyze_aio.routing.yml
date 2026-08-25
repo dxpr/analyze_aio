@@ -1,0 +1,7 @@
+analyze_aio.settings:
+  path: '/admin/config/analyze/aio'
+  defaults:
+    _form: 'Drupal\analyze_aio\Form\AioSettingsForm'
+    _title: 'AI Optimization Settings'
+  requirements:
+    _permission: 'administer analyze settings'
