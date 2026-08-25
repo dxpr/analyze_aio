@@ -2,36 +2,67 @@
   max-width: 800px;
 }
 
+/* Score summary: gin-layer-wrapper provides card styling, shadow, border, dark mode */
 .analyze-full-report__score-summary {
   display: flex;
   align-items: center;
-  gap: 1.5em;
-  margin-bottom: 1.5em;
-  padding: 1em 1.5em;
-  background: var(--color-bgblue-active, #e8f0fe);
-  border-radius: 4px;
+  gap: var(--gin-spacing-l, 1.5em);
+  margin-bottom: var(--gin-spacing-s, 0.75em);
 }
 
 .analyze-full-report__score-text {
-  font-size: 0.95em;
-  line-height: 1.5;
-  color: var(--color-text, #232429);
+  color: var(--gin-color-text-light, #545560);
 }
 
+/* Stats strip */
+.analyze-full-report__stats {
+  display: flex;
+  gap: var(--gin-spacing-l, 1.25em);
+  padding: var(--gin-spacing-xs, 0.5em) 0;
+  margin-bottom: var(--gin-spacing-m, 1em);
+  color: var(--gin-color-text-light, #545560);
+}
+
+.analyze-full-report__stat {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gin-spacing-xxs, 0.25em);
+}
+
+.analyze-full-report__stat-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.analyze-full-report__stat--pass .analyze-full-report__stat-dot {
+  background: var(--gin-color-green, #058260);
+}
+
+.analyze-full-report__stat--partial .analyze-full-report__stat-dot {
+  background: var(--gin-color-warning, #d8b234);
+}
+
+.analyze-full-report__stat--fail .analyze-full-report__stat-dot {
+  background: var(--gin-color-danger, #cc3d3d);
+}
+
+/* Severity sections */
 .analyze-full-report__section {
-  margin-bottom: 0.75em;
+  margin-bottom: var(--gin-spacing-xs, 0.5em);
 }
 
 .analyze-full-report__section > summary {
   cursor: pointer;
-  font-weight: 700;
-  font-size: 0.95em;
-  padding: 0.6em 0.8em;
-  border-radius: 4px;
+  font-weight: var(--gin-font-weight-bold, 575);
+  padding: var(--gin-spacing-xs, 0.5em) var(--gin-spacing-s, 0.75em);
+  border-radius: var(--gin-border-xs, 0.25rem);
   list-style: none;
   display: flex;
   align-items: center;
-  gap: 0.5em;
+  gap: var(--gin-spacing-xs, 0.5em);
+  user-select: none;
 }
 
 .analyze-full-report__section > summary::-webkit-details-marker {
@@ -51,23 +82,27 @@
 }
 
 .analyze-full-report__section--fail > summary {
-  background: var(--color-maximumred-lightest, #fcf0f0);
-  color: var(--color-maximumred, #d72222);
+  background: var(--gin-status-danger-bg, rgba(222, 117, 96, 0.15));
+  color: var(--gin-status-danger-text, #cc3d3d);
 }
 
 .analyze-full-report__section--partial > summary {
-  background: #fef6e7;
-  color: #916400;
+  background: var(--gin-status-warning-bg, rgba(226, 151, 0, 0.15));
+  color: var(--gin-status-warning-text, #826b1f);
 }
 
 .analyze-full-report__section--pass > summary {
-  background: #edf7ed;
-  color: #1b6e1b;
+  background: var(--gin-status-success-bg, #26a76930);
+  color: var(--gin-status-success-text, #1d6844);
 }
 
+/* Check items: grid rows, clean lines */
 .analyze-check {
-  padding: 0.75em 1em 0.75em 2em;
-  border-bottom: 1px solid var(--color-gray-200, #e3e3e3);
+  display: grid;
+  grid-template-columns: 1.2em 1fr auto;
+  column-gap: var(--gin-spacing-xs, 0.5em);
+  padding: var(--gin-spacing-xs, 0.5em) var(--gin-spacing-s, 0.75em);
+  border-bottom: 1px solid var(--gin-border-color-secondary, rgba(0, 0, 0, 0.08));
 }
 
 .analyze-check:last-child {
@@ -75,91 +110,92 @@
 }
 
 .analyze-check__header {
-  display: flex;
-  align-items: baseline;
-  gap: 0.5em;
-  margin-bottom: 0.25em;
+  display: contents;
 }
 
 .analyze-check__icon {
-  flex-shrink: 0;
-  width: 1em;
+  grid-column: 1;
+  grid-row: 1;
   text-align: center;
-  font-size: 0.9em;
+  font-weight: var(--gin-font-weight-bold, 575);
 }
 
 .analyze-check__icon--pass {
-  color: #1b6e1b;
+  color: var(--gin-color-green, #058260);
 }
 
 .analyze-check__icon--partial {
-  color: #916400;
+  color: var(--gin-color-warning, #d8b234);
 }
 
 .analyze-check__icon--fail {
-  color: #d72222;
+  color: var(--gin-color-danger, #cc3d3d);
 }
 
 .analyze-check__name {
-  font-weight: 600;
-  font-size: 0.92em;
+  grid-column: 2;
+  grid-row: 1;
+  font-weight: var(--gin-font-weight-semibold, 525);
 }
 
 .analyze-check__score {
-  margin-inline-start: auto;
-  font-size: 0.82em;
-  color: var(--color-gray-600, #6e6e6e);
+  grid-column: 3;
+  grid-row: 1;
+  color: var(--gin-color-text-light, #545560);
   white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  text-align: end;
 }
 
 .analyze-check__diagnosis {
-  font-size: 0.88em;
-  margin: 0.2em 0 0 1.5em;
-  color: var(--color-text, #232429);
+  grid-column: 2 / -1;
+  color: var(--gin-color-text-light, #545560);
 }
 
 .analyze-check__why {
-  font-size: 0.82em;
-  margin: 0.35em 0 0 1.5em;
-  color: var(--color-gray-600, #6e6e6e);
+  grid-column: 2 / -1;
+  color: var(--gin-color-text-light, #545560);
   font-style: italic;
 }
 
 .analyze-check__action {
-  font-size: 0.88em;
-  margin: 0.35em 0 0 1.5em;
-  padding: 0.4em 0.6em;
-  background: var(--color-bgblue-active, #e8f0fe);
-  border-radius: 3px;
-  border-inline-start: 3px solid var(--color-blue, #003cc5);
+  grid-column: 2 / -1;
+  padding: var(--gin-spacing-xxs, 0.25em) var(--gin-spacing-xs, 0.5em);
+  margin-top: var(--gin-spacing-xxs, 0.25em);
+  background: var(--gin-bg-layer2, #edeff5);
+  border-radius: var(--gin-border-xxs, 0.125rem);
+  border-inline-start: 3px solid var(--gin-color-primary, #003cc5);
 }
 
 .analyze-check__data {
-  font-size: 0.82em;
-  margin: 0.3em 0 0 1.5em;
-  color: var(--color-gray-600, #6e6e6e);
+  grid-column: 2 / -1;
+  color: var(--gin-color-text-light, #545560);
+  font-variant-numeric: tabular-nums;
 }
 
 @media (max-width: 600px) {
   .analyze-full-report__score-summary {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.75em;
-    padding: 0.75em 1em;
+    gap: var(--gin-spacing-s, 0.75em);
+  }
+
+  .analyze-full-report__score-summary .analyze-circular-gauge {
+    align-self: center;
+  }
+
+  .analyze-full-report__stats {
+    flex-wrap: wrap;
+    gap: var(--gin-spacing-s, 0.75em);
   }
 
   .analyze-check {
-    padding: 0.75em 0.5em 0.75em 1em;
+    grid-template-columns: 1.2em 1fr;
   }
 
-  .analyze-check__diagnosis,
-  .analyze-check__why,
-  .analyze-check__action,
-  .analyze-check__data {
-    margin-inline-start: 0;
-  }
-
-  .analyze-check__action {
-    margin-inline-end: 0;
+  .analyze-check__score {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: start;
   }
 }
