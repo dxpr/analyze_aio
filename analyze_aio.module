@@ -45,7 +45,7 @@ function analyze_aio_entity_delete(EntityInterface $entity): void {
 function analyze_aio_views_pre_view(ViewExecutable $view, $display_id, array &$args) {
   if ($view->id() === 'aio_results' && $display_id === 'page_1') {
     $current_user = \Drupal::currentUser();
-    if ($current_user->hasPermission('administer analyze settings')) {
+    if ($current_user->hasPermission('administer analyze')) {
       $settings_url = Url::fromRoute('analyze_aio.settings');
       if ($settings_url->access()) {
         $link = Link::fromTextAndUrl(t('Configure settings'), $settings_url);

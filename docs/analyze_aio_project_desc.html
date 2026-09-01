@@ -4,7 +4,7 @@
 
 <blockquote>ChatGPT, Perplexity, Gemini, and Google AI Overviews are replacing traditional search for millions of queries. These systems extract answers from pages with clear structure: proper headings, structured data, semantic HTML, and FAQ patterns. Pages that lack these signals get skipped, regardless of how good the content is. This module scores every page against the factors that determine AI answer engine visibility.</blockquote>
 
-<p><img src="/files/project-images/screenshot-1787687177426-7.jpg" alt="AI Optimization Analysis full report showing AIO readiness score gauge and individual check results" /></p>
+<p><a href="/files/project-images/screenshot-1787687177426-7.jpg"><img src="/files/project-images/screenshot-1787687177426-7.jpg" alt="AI Optimization Analysis full report showing AIO readiness score gauge and individual check results" /></a></p>
 
 <h3>You need AI Optimization Analysis if</h3>
 <ul>
@@ -90,6 +90,25 @@
 </p>
 
 <p>Analyze AIO is included in <a href="https://dxpr.com/c/marketing-cms?ref=50701">DXPR CMS</a>, which ships the full Analyze suite pre-configured so marketing teams can start optimising for AI answer engines immediately.</p>
+
+<h2>FAQ</h2>
+
+<dl>
+  <dt>Does AI Optimization Analysis require an AI provider?</dt>
+  <dd>
+    <p>Eight of ten checks run without any AI provider; they inspect heading hierarchy, structured data, meta tags, semantic HTML, FAQ patterns, and internal link density using deterministic rules. Two optional checks (citation readiness and tone authority) require a configured AI chat provider through the Drupal AI module, but the core scoring works out of the box.</p>
+  </dd>
+
+  <dt>How does AIO Analysis differ from SEO Analysis?</dt>
+  <dd>
+    <p>SEO Analysis targets traditional search engine ranking factors such as title tags, meta descriptions, image alt text, and URL structure. AIO Analysis targets AI answer engine visibility: whether the page is structured so that ChatGPT, Perplexity, Gemini, and Google AI Overviews can extract and cite its content. Both modules run independently and complement each other.</p>
+  </dd>
+
+  <dt>How often does AIO Analysis rescan my content?</dt>
+  <dd>
+    <p>Scores are cached using a content hash and only recomputed when the content actually changes. Editing and saving a page triggers automatic rescoring. For existing content, run a batch analysis via Drush or the admin UI to score hundreds of pages at once; subsequent views load instantly from cache.</p>
+  </dd>
+</dl>
 
 <h3>Related Modules</h3>
 

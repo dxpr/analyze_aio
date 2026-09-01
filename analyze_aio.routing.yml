@@ -4,4 +4,4 @@ analyze_aio.settings:
     _form: 'Drupal\analyze_aio\Form\AioSettingsForm'
     _title: 'AI Optimization Settings'
   requirements:
-    _permission: 'administer analyze settings'
+    _permission: 'administer analyze'
