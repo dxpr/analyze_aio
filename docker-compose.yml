@@ -1,0 +1,10 @@
+services:
+
+  drupal-check:
+    image: composer:2.7
+    profiles: ["lint"]
+    working_dir: /
+    command: bash /src/scripts/run-drupal-check.sh
+    tty: true
+    volumes:
+      - .:/src
