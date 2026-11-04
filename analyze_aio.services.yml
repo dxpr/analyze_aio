@@ -1,7 +1,7 @@
 services:
   analyze_aio.storage:
     class: Drupal\analyze_aio\Service\AioStorageService
-    arguments: ['@database', '@config.factory', '@datetime.time']
+    arguments: ['@database', '@datetime.time']
 
   analyze_aio.content_inspector:
     class: Drupal\analyze_aio\Service\ContentInspectorService

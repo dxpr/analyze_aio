@@ -19,10 +19,10 @@ final class ContentInspectorService {
   use DependencySerializationTrait;
 
   public function __construct(
-    private readonly EntityTypeManagerInterface $entityTypeManager,
-    private readonly RendererInterface $renderer,
-    private readonly ConfigFactoryInterface $configFactory,
-    private readonly RequestStack $requestStack,
+    protected readonly EntityTypeManagerInterface $entityTypeManager,
+    protected readonly RendererInterface $renderer,
+    protected readonly ConfigFactoryInterface $configFactory,
+    protected readonly RequestStack $requestStack,
   ) {}
 
   /**
