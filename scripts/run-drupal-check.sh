@@ -39,7 +39,7 @@ fi
 # Install the module dependencies for PHPStan analysis
 composer require 'drupal/analyze:^1.3' 'drupal/views_color_scales:^1.1' --no-interaction
 
-# Install drupal/ai so PHPStan resolves the optional AI classes (present from 1.0.7)
+# Install drupal/ai (1.x) so PHPStan resolves the optional AI classes
 composer require --dev 'drupal/ai:^1.0.7' --no-interaction
 
 # Install PHPStan extensions for Drupal 11 and Drush for command analysis
