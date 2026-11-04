@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Drupal\analyze_aio\Service;
 
 use Drupal\Component\Datetime\TimeInterface;
-use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Database\Connection;
 use Drupal\Core\DependencyInjection\DependencySerializationTrait;
 use Drupal\Core\Entity\EntityInterface;
@@ -18,9 +17,8 @@ final class AioStorageService {
   use DependencySerializationTrait;
 
   public function __construct(
-    private readonly Connection $database,
-    private readonly ConfigFactoryInterface $configFactory,
-    private readonly TimeInterface $time,
+    protected readonly Connection $database,
+    protected readonly TimeInterface $time,
   ) {}
 
   /**

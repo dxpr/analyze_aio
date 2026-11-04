@@ -12,7 +12,10 @@ fi
 
 # Create project in a temporary directory inside the container
 INSTALL_DIR="/drupal_install_tmp"
-composer create-project drupal/recommended-project:11.x-dev "$INSTALL_DIR" --no-interaction --stability=dev
+
+# Drupal core line to analyse against; defaults to 11
+TARGET_DRUPAL_CORE_VERSION="${TARGET_DRUPAL_CORE_VERSION:-11}"
+composer create-project drupal/recommended-project:${TARGET_DRUPAL_CORE_VERSION}.x-dev "$INSTALL_DIR" --no-interaction --stability=dev
 
 cd "$INSTALL_DIR"
 
@@ -37,7 +40,8 @@ if [ ! -L "web/modules/contrib/analyze_aio" ]; then
 fi
 
 # Install the module dependencies for PHPStan analysis
-composer require 'drupal/analyze:^1.3' 'drupal/views_color_scales:^1.1' --no-interaction
+# drupal/ai is optional at runtime, but the AI code paths need its classes for analysis.
+composer require 'drupal/analyze:^1.3' 'drupal/views_color_scales:^1.1' 'drupal/ai:^1.0' --no-interaction
 
 # Install PHPStan extensions for Drupal 11 and Drush for command analysis
 composer require --dev phpstan/phpstan mglaman/phpstan-drupal phpstan/phpstan-deprecation-rules drush/drush --with-all-dependencies --no-interaction
