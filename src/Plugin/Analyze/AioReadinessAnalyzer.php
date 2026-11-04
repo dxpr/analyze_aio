@@ -723,9 +723,10 @@ EOT;
       }
 
       $messages = new ChatInput([new ChatMessage('user', $prompt)]);
-      // ProviderProxy forwards chat() through __call(), so type the forwarded call.
-      /** @var \Drupal\ai\OperationType\Chat\ChatInterface $provider */
-      $response = $provider->chat($messages, $defaults['model_id'])->getNormalized();
+      // Same call as ->chat(); ProviderProxy routes it through __call().
+      /** @var \Drupal\ai\OperationType\Chat\ChatOutput $output */
+      $output = $provider->__call('chat', [$messages, $defaults['model_id']]);
+      $response = $output->getNormalized();
 
       $decoded = $this->promptJsonDecoder->decode($response);
       if (!is_array($decoded)) {
