@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
+use Drupal\Core\Hook\Attribute\LegacyRequirementsHook;
 use Drupal\Component\Utility\DeprecationHelper;
 use Drupal\Core\Extension\Requirement\RequirementSeverity;
 
@@ -82,6 +87,7 @@ function analyze_aio_schema(): array {
  *
  * @phpstan-return array<string, array<string, mixed>>
  */
+#[LegacyRequirementsHook]
 function analyze_aio_requirements(string $phase): array {
   $requirements = [];
 

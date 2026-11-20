@@ -29,6 +29,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   description = @Translation("Checks content readiness for AI answer engines: headings, structured data, meta tags, semantic HTML, and citation quality.")
  * )
  */
+#[\Drupal\analyze\Attribute\Analyze(
+  id: "analyze_aio_readiness",
+  label: new TranslatableMarkup("AI Optimization"),
+  description: new TranslatableMarkup("Checks content readiness for AI answer engines: headings, structured data, meta tags, semantic HTML, and citation quality."),
+)]
 final class AioReadinessAnalyzer extends AnalyzePluginBase implements BatchableAnalyzerInterface {
 
   /**

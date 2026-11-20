@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * @file
+ */
+
 declare(strict_types=1);
 
 /**
@@ -9,8 +13,6 @@ declare(strict_types=1);
 use Drupal\Core\Hook\Attribute\LegacyHook;
 use Drupal\analyze_aio\Hook\AnalyzeAioHooks;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\views\ViewExecutable;
 
 /**
@@ -49,9 +51,8 @@ function analyze_aio_views_pre_view(ViewExecutable $view, $display_id, array &$a
  * Implements hook_views_color_scale_popover_alter().
  */
 #[LegacyHook]
-function analyze_aio_views_color_scale_popover_alter(array &$content, array $context): void
-{
-    \Drupal::service(AnalyzeAioHooks::class)->viewsColorScalePopoverAlter($content, $context);
+function analyze_aio_views_color_scale_popover_alter(array &$content, array $context): void {
+  \Drupal::service(AnalyzeAioHooks::class)->viewsColorScalePopoverAlter($content, $context);
 }
 
 /**
@@ -71,4 +72,16 @@ function _analyze_aio_is_supported_entity(EntityInterface $entity): bool {
   $bundle = $entity->bundle();
 
   return isset($status[$entity_type][$bundle]['analyze_aio_readiness']);
+}
+
+/**
+ * Implements hook_runtime_requirements().
+ */
+function analyze_aio_runtime_requirements(): array {
+  // Drupal 11.2 still invokes the legacy requirements hook.
+  if (version_compare(\Drupal::VERSION, '11.3.0', '<')) {
+    return [];
+  }
+  \Drupal::moduleHandler()->loadInclude('analyze_aio', 'install');
+  return analyze_aio_requirements('runtime');
 }
