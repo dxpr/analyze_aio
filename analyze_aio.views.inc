@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Views hooks for Analyze AIO.
  */
 
 use Drupal\Core\Hook\Attribute\LegacyHook;

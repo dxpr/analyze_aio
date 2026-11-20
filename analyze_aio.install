@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Installation and update hooks for Analyze AIO.
  */
 
 declare(strict_types=1);
