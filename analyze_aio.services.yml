@@ -10,3 +10,11 @@ services:
   logger.channel.analyze_aio:
     parent: logger.channel_base
     arguments: ['analyze_aio']
+
+  Drupal\analyze_aio\Hook\AnalyzeAioHooks:
+    class: Drupal\analyze_aio\Hook\AnalyzeAioHooks
+    autowire: true
+
+  Drupal\analyze_aio\Hook\AnalyzeAioViewsHooks:
+    class: Drupal\analyze_aio\Hook\AnalyzeAioViewsHooks
+    autowire: true

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use Drupal\Component\Utility\DeprecationHelper;
+use Drupal\Core\Extension\Requirement\RequirementSeverity;
+
 /**
  * @file
  * Install, update, and uninstall functions for the Analyze AIO module.
@@ -108,7 +111,7 @@ function analyze_aio_requirements(string $phase): array {
         '@count' => $count,
         '@total' => $total,
       ]),
-      'severity' => $count > 0 ? REQUIREMENT_WARNING : REQUIREMENT_OK,
+      'severity' => $count > 0 ? DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.2.0', fn() => RequirementSeverity::Warning, fn() => REQUIREMENT_WARNING) : DeprecationHelper::backwardsCompatibleCall(\Drupal::VERSION, '11.2.0', fn() => RequirementSeverity::OK, fn() => REQUIREMENT_OK),
     ];
   }
 
