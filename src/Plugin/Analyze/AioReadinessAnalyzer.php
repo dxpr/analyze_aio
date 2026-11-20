@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Drupal\analyze_aio\Plugin\Analyze;
 
+use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\ai\AiProviderPluginManager;
 use Drupal\ai\Exception\AiRateLimitException;
 use Drupal\ai\OperationType\Chat\ChatInput;
@@ -28,6 +29,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   description = @Translation("Checks content readiness for AI answer engines: headings, structured data, meta tags, semantic HTML, and citation quality.")
  * )
  */
+#[\Drupal\analyze\Attribute\Analyze(
+  id: "analyze_aio_readiness",
+  label: new TranslatableMarkup("AI Optimization"),
+  description: new TranslatableMarkup("Checks content readiness for AI answer engines: headings, structured data, meta tags, semantic HTML, and citation quality."),
+)]
 final class AioReadinessAnalyzer extends AnalyzePluginBase implements BatchableAnalyzerInterface {
 
   /**
@@ -292,7 +298,7 @@ final class AioReadinessAnalyzer extends AnalyzePluginBase implements BatchableA
    * @return array<string, mixed>
    *   Render array.
    */
-  private function buildCheckSection(string|\Drupal\Core\StringTranslation\TranslatableMarkup $title, array $checks, string $status, bool $open): array {
+  private function buildCheckSection(string|TranslatableMarkup $title, array $checks, string $status, bool $open): array {
     $section = [
       '#type' => 'html_tag',
       '#tag' => 'details',

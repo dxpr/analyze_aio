@@ -210,7 +210,18 @@ final class ContentInspectorService {
     }
     $details['schemas_found'] = $types;
 
-    $content_types = ['Article', 'BlogPosting', 'NewsArticle', 'HowTo', 'Product', 'Recipe', 'Review', 'Report', 'TechArticle', 'ScholarlyArticle'];
+    $content_types = [
+      'Article',
+      'BlogPosting',
+      'NewsArticle',
+      'HowTo',
+      'Product',
+      'Recipe',
+      'Review',
+      'Report',
+      'TechArticle',
+      'ScholarlyArticle',
+    ];
     $has_content_type = FALSE;
     foreach ($types as $type) {
       $flat_types = is_array($type) ? $type : [$type];
@@ -345,7 +356,21 @@ final class ContentInspectorService {
   private function checkSemanticHtml(\DOMDocument $doc): array {
     $score = 0;
     $max = 3;
-    $semantic_tags = ['article', 'section', 'nav', 'aside', 'figure', 'figcaption', 'main', 'header', 'footer', 'time', 'mark', 'details', 'summary'];
+    $semantic_tags = [
+      'article',
+      'section',
+      'nav',
+      'aside',
+      'figure',
+      'figcaption',
+      'main',
+      'header',
+      'footer',
+      'time',
+      'mark',
+      'details',
+      'summary',
+    ];
 
     $found = [];
     foreach ($semantic_tags as $tag) {
